@@ -3232,7 +3232,6 @@ enum {
 } FRAME_UPDATE_TYPE;
 
 // that are not marked as coded with 0,0 motion in the first pass.
-#define STATIC_KF_GROUP_THRESH 99
 #define FAST_MOVING_KF_GROUP_THRESH 5
 #if QPS_TUNING
 #define MEDIUM_MOVING_KF_GROUP_THRESH  30
@@ -3244,6 +3243,7 @@ enum {
 #define HIGH_FILTERED_THRESHOLD     (4<<8) // 8 bit precision
 #define LOW_FILTERED_THRESHOLD      (1<<8) // 8 bit precision
 #else
+#define STATIC_KF_GROUP_THRESH 99
 #define MAX_QPS_COMP_I        60
 #define MAX_QPS_COMP_NONI    200
 #endif
@@ -3419,7 +3419,7 @@ static int adaptive_qindex_calc(
         if (picture_control_set_ptr->parent_pcs_ptr->kf_zeromotion_pct <= FAST_MOVING_KF_GROUP_THRESH)
             picture_control_set_ptr->parent_pcs_ptr->qp_scaling_average_complexity = max_qp_scaling_avg_comp_I;
 
-        // For the low filtered ALT_REF pictures (next ALT_REF) where complexity is low and picture is static, decrease the complexity/QP of the I_SLICE. 
+        // For the low filtered ALT_REF pictures (next ALT_REF) where complexity is low and picture is static, decrease the complexity/QP of the I_SLICE.
         // The improved area will be propagated to future frames
         if (picture_control_set_ptr->parent_pcs_ptr->qp_scaling_average_complexity <= LOW_QPS_COMP_THRESHOLD &&
             picture_control_set_ptr->parent_pcs_ptr->filtered_sse < LOW_FILTERED_THRESHOLD && picture_control_set_ptr->parent_pcs_ptr->filtered_sse_uv < LOW_FILTERED_THRESHOLD &&
@@ -3466,7 +3466,7 @@ static int adaptive_qindex_calc(
         // For the highly filtered ALT_REF pictures or where complexity is medium or picture is medium moving, add a boost to decrease the QP of the ALT_REF.
         // The improved area will be propagated to future frames
         rc->arf_boost_factor = (picture_control_set_ptr->parent_pcs_ptr->qp_scaling_average_complexity > LOW_QPS_COMP_THRESHOLD || picture_control_set_ptr->parent_pcs_ptr->kf_zeromotion_pct < MEDIUM_MOVING_KF_GROUP_THRESH || picture_control_set_ptr->parent_pcs_ptr->filtered_sse >= HIGH_FILTERED_THRESHOLD) ?
-            1.3 : 1;
+            (float_t)1.3 : 1;
 #else
         rc->arf_boost_factor = 1;
 #endif
