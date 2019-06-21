@@ -41,7 +41,7 @@ extern "C" {
 
 
 #define INCOMPLETE_SB_FIX                 1 // Handle the incomplete SBs properly based on the standard and consider all allowed blocks
-#define QPS_TUNING                        1 // Tune the QPS algorithm to consider ALR_REF filtering and movement of the pictures.
+#define QPS_TUNING                        1 // Tune the QPS algorithm to consider ALR_REF filtering and movement of the pictures
                                             // Update to a more accurate QPS complexity metric
 #define CDEF_AVX_OPT                      1
 #define MR_MODE                           0
