@@ -27,6 +27,7 @@
 #define OUTPUT_BITSTREAM_TOKEN          "-b"
 #define OUTPUT_RECON_TOKEN              "-o"
 #define ERROR_FILE_TOKEN                "-errlog"
+#define DEBUG_FILE_TOKEN                "-deblog"
 #define QP_FILE_TOKEN                   "-qp-file"
 #define STAT_FILE_TOKEN                 "-stat-file"
 #define WIDTH_TOKEN                     "-w"
@@ -149,6 +150,12 @@ static void SetCfgErrorFile                     (const char *value, EbConfig *cf
     if (cfg->error_log_file) { fclose(cfg->error_log_file); }
     FOPEN(cfg->error_log_file,value, "w+");
 };
+static void SetCfgDebugFile                     (const char *value, EbConfig *cfg)
+{
+    if (cfg->debug_log_file) { fclose(cfg->debug_log_file); }
+    FOPEN(cfg->debug_log_file, value, "w");
+};
+
 static void SetCfgReconFile                     (const char *value, EbConfig *cfg)
 {
     if (cfg->recon_file) { fclose(cfg->recon_file); }
@@ -280,6 +287,7 @@ config_entry_t config_entry[] = {
     { SINGLE_INPUT, INPUT_FILE_TOKEN, "InputFile", SetCfgInputFile },
     { SINGLE_INPUT, OUTPUT_BITSTREAM_TOKEN,   "StreamFile",       SetCfgStreamFile },
     { SINGLE_INPUT, ERROR_FILE_TOKEN, "ErrorFile", SetCfgErrorFile },
+    { SINGLE_INPUT, DEBUG_FILE_TOKEN, "DebugFile", SetCfgDebugFile },    
     { SINGLE_INPUT, OUTPUT_RECON_TOKEN, "ReconFile", SetCfgReconFile },
     { SINGLE_INPUT, QP_FILE_TOKEN, "QpFile", SetCfgQpFile },
     { SINGLE_INPUT, STAT_FILE_TOKEN, "StatFile", SetCfgStatFile },
@@ -389,6 +397,7 @@ void eb_config_ctor(EbConfig *config_ptr)
     config_ptr->input_file                            = NULL;
     config_ptr->bitstream_file                        = NULL;
     config_ptr->recon_file                            = NULL;
+    config_ptr->debug_log_file                        = NULL;    
     config_ptr->error_log_file                         = stderr;
     config_ptr->qp_file                               = NULL;
     config_ptr->stat_file                             = NULL;
@@ -560,6 +569,11 @@ void eb_config_dtor(EbConfig *config_ptr)
         fclose(config_ptr->error_log_file);
         config_ptr->error_log_file = (FILE *) NULL;
     }
+    
+    if (config_ptr->debug_log_file) {
+        fclose(config_ptr->debug_log_file);
+        config_ptr->debug_log_file = (FILE *) NULL;
+    }    
 
     if (config_ptr->qp_file) {
         fclose(config_ptr->qp_file);

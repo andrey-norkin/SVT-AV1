@@ -876,6 +876,10 @@ void UpdateBeaInfoOverTime(
     picture_control_set_ptr->non_moving_index_average = (uint16_t)nonMovingIndexSum / picture_control_set_ptr->sb_total_count;
     me_dist_pic_count = MAX(me_dist_pic_count, 1);
     picture_control_set_ptr->qp_scaling_average_complexity = (uint16_t)((uint64_t)me_dist / picture_control_set_ptr->sb_total_count / 256 / me_dist_pic_count);
+    if(picture_control_set_ptr->sequence_control_set_ptr->static_config.debug_log_ptr != NULL)
+    {
+        fprintf(picture_control_set_ptr->sequence_control_set_ptr->static_config.debug_log_ptr, "%d %d %d %d %d %d %d\n", picture_control_set_ptr->qp_scaling_average_complexity, picture_control_set_ptr->non_moving_index_average, picture_control_set_ptr->filtered_sse, picture_control_set_ptr->filtered_sse_uv, picture_control_set_ptr->temporal_layer_index, (uint32_t) (picture_control_set_ptr->slice_type), (uint32_t) (picture_control_set_ptr->picture_number) ); ;
+    }
     return;
 }
 

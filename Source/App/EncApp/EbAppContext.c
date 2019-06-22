@@ -209,9 +209,10 @@ EbErrorType CopyConfigurationParameters(
     callback_data->eb_enc_parameters.logical_processors = config->logical_processors;
     callback_data->eb_enc_parameters.target_socket = config->target_socket;
     callback_data->eb_enc_parameters.recon_enabled = config->recon_file ? EB_TRUE : EB_FALSE;
+    callback_data->eb_enc_parameters.debug_log_ptr = config->debug_log_file;    
     // --- start: ALTREF_FILTERING_SUPPORT
     callback_data->eb_enc_parameters.enable_altrefs  = (EbBool)config->enable_altrefs;
-    callback_data->eb_enc_parameters.altref_strength = config->altref_strength;
+    callback_data->eb_enc_parameters.altref_strength = config->altref_strength;    
     callback_data->eb_enc_parameters.altref_nframes  = config->altref_nframes;
     callback_data->eb_enc_parameters.enable_overlays = (EbBool)config->enable_overlays;
     // --- end: ALTREF_FILTERING_SUPPORT

@@ -12,6 +12,7 @@ extern "C" {
 
 #include "stdint.h"
 #include "EbSvtAv1.h"
+#include <stdio.h>
 
 #define TILES    1
 #define ALT_REF_OVERLAY_APP                         1
@@ -421,6 +422,7 @@ typedef struct EbSvtAv1EncConfiguration
     uint8_t                  altref_strength;
     uint8_t                  altref_nframes;
     EbBool                   enable_overlays;
+    FILE*                    debug_log_ptr;
 } EbSvtAv1EncConfiguration;
 
     /* STEP 1: Call the library to construct a Component Handle.

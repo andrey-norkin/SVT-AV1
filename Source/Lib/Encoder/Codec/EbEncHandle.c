@@ -2278,6 +2278,7 @@ void CopyApiFromApp(
     sequence_control_set_ptr->static_config.altref_strength = pComponentParameterStructure->altref_strength;
     sequence_control_set_ptr->static_config.altref_nframes = pComponentParameterStructure->altref_nframes;
     sequence_control_set_ptr->static_config.enable_overlays = pComponentParameterStructure->enable_overlays;
+    sequence_control_set_ptr->static_config.debug_log_ptr = pComponentParameterStructure->debug_log_ptr;    
 
     return;
 }

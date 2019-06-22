@@ -170,6 +170,7 @@ typedef struct EbConfig
     FILE                    *bitstream_file;
     FILE                    *recon_file;
     FILE                    *error_log_file;
+    FILE                    *debug_log_file;    
     FILE                    *stat_file;
     FILE                    *buffer_file;
 
