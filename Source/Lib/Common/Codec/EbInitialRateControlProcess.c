@@ -858,7 +858,8 @@ void UpdateBeaInfoOverTime(
 #if QPS_TUNING
             }
             // Store the filtered_sse of next ALT_REF picture in the I slice to be used in QP Scaling
-            if (picture_control_set_ptr->slice_type == I_SLICE && picture_control_set_ptr->filtered_sse == 0 && lcuIdx == 0 && temporaryPictureControlSetPtr->temporal_layer_index == 0) {
+            if (picture_control_set_ptr->slice_type == I_SLICE && picture_control_set_ptr->filtered_sse == 0 
+                    && lcuIdx == 0 && temporaryPictureControlSetPtr->temporal_layer_index == 0) {
                 picture_control_set_ptr->filtered_sse = temporaryPictureControlSetPtr->filtered_sse;
                 picture_control_set_ptr->filtered_sse_uv = temporaryPictureControlSetPtr->filtered_sse_uv;
             }
@@ -878,7 +879,7 @@ void UpdateBeaInfoOverTime(
     picture_control_set_ptr->qp_scaling_average_complexity = (uint16_t)((uint64_t)me_dist / picture_control_set_ptr->sb_total_count / 256 / me_dist_pic_count);
     if(picture_control_set_ptr->sequence_control_set_ptr->static_config.debug_log_ptr != NULL)
     {
-        fprintf(picture_control_set_ptr->sequence_control_set_ptr->static_config.debug_log_ptr, "%d %d %d %d %d %d %d\n", picture_control_set_ptr->qp_scaling_average_complexity, picture_control_set_ptr->non_moving_index_average, picture_control_set_ptr->filtered_sse, picture_control_set_ptr->filtered_sse_uv, picture_control_set_ptr->temporal_layer_index, (uint32_t) (picture_control_set_ptr->slice_type), (uint32_t) (picture_control_set_ptr->picture_number) ); ;
+        fprintf(picture_control_set_ptr->sequence_control_set_ptr->static_config.debug_log_ptr, "%d %d %d %d %d %d %d %d\n", picture_control_set_ptr->qp_scaling_average_complexity, picture_control_set_ptr->non_moving_index_average, picture_control_set_ptr->filtered_sse, picture_control_set_ptr->filtered_sse_uv, picture_control_set_ptr->temporal_layer_index, (uint32_t) (picture_control_set_ptr->slice_type), (uint32_t) (picture_control_set_ptr->picture_number), picture_control_set_ptr->kf_zeromotion_pct ); ;
     }
     return;
 }
